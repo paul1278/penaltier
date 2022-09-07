@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  ws:
+    image: php:apache
+    command: bash -c 'a2enmod rewrite && docker-php-ext-install mysqli && apache2-foreground'
+    volumes:
+     - ./src:/var/www/html
+    ports:
+      - 8080:80
+    links:
+      - db
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "ROOT_PASSWORD"
+      MYSQL_DATABASE: "DB"
+      MYSQL_USER: "USER"
+      MYSQL_PASSWORD: "PASS"
+    volumes:
+      - ./db:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    environment:
+      PMA_USER: "USER"
+      PMA_PASSWORD: "PASS"
+    ports:
+      - 8082:80
+    links:
+      - db

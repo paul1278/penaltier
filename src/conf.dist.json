@@ -1,0 +1,8 @@
+{
+    "database" : {
+        "url" : "db",
+        "username" : "USER",
+        "password" : "PASS",
+        "database" : "DB"
+    }
+}
