@@ -13,10 +13,13 @@ $pass = password_hash($pass, PASSWORD_DEFAULT);
 
 try {
 $d = Database::exec(
-    "UPDATE users SET passwordhash = ?, role = ? WHERE username = ?",
-    "sss",
-    [$pass, $role, $username]
-);
+
+try {
+    $d = Database::exec(
+        "UPDATE users SET role = ? WHERE username = ?",
+        "ss",
+        [$role, $username]
+    );
 } catch(Exception $e) {
     //$e->getCode()
     error(400);
