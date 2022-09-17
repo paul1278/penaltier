@@ -12,13 +12,15 @@ CREATE TABLE `assigned_penalties` (
   `id` int(11) NOT NULL,
   `penalty` int(11) NOT NULL,
   `user` varchar(255) NOT NULL,
+  `paid` tinyint(1) NOT NULL DEFAULT 0,
   `assigned_by` varchar(255) NOT NULL,
   `assigned_on` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `penalties` (
   `id` int(11) NOT NULL,
-  `name` text NOT NULL
+  `name` text NOT NULL,
+  `payAmount` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `role` (
