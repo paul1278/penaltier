@@ -23,5 +23,10 @@ $d = Database::dbQuery(
 $d = Database::resultToArray($d);
 $count = Database::dbQuery("SELECT COUNT(*) as c FROM assigned_penalties");
 $count = +Database::resultToArray($count)[0]->c;
-ok(["limit" => $limit, "offset" => $offset, "penalties" => $d, "total" => $count]);
+$k = Database::dbQuery("SELECT SUM(penalties.payAmount) as amount, user FROM `assigned_penalties` INNER JOIN penalties on penalty = penalties.id WHERE paid = 0 GROUP BY user");
+$k = Database::resultToArray($k);
+foreach($k as $o) {
+    $o->amount = +$o->amount;
+}
+ok(["limit" => $limit, "offset" => $offset, "penalties" => $d, "total" => $count, "outstanding" => $k]);
 ?>
