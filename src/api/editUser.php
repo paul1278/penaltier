@@ -7,12 +7,23 @@ if($name != $_SESSION["user"]->username) {
     requirePerm("admin");
 }
 
-$pass = $_POST["passwordhash"];
-$role = $_POST["role"];
-$pass = password_hash($pass, PASSWORD_DEFAULT);
+$pass = $_POST["passwordhash"] ?? null;
+$role = $_POST["role"] ?? null;
 
-try {
-$d = Database::exec(
+if($pass != null) {
+    $pass = password_hash($pass, PASSWORD_DEFAULT);
+
+    try {
+        $d = Database::exec(
+            "UPDATE users SET passwordhash = ? WHERE username = ?",
+            "ss",
+            [$pass, $username]
+        );
+    } catch(Exception $e) {
+        //$e->getCode()
+        error(400);
+    }
+}
 
 try {
     $d = Database::exec(
