@@ -3,6 +3,7 @@
         "url" : "db",
         "username" : "USER",
         "password" : "PASS",
-        "database" : "DB"
+        "database" : "DB",
+        "port" : 3306
     }
 }
